@@ -1,10 +1,12 @@
-FROM rockylinux:9
+FROM centos:latest
 MAINTAINER yuvrajpatil358@gmail.com
-RUN dnf install -y httpd zip unzip wget
-RUN wget https://www.free-css.com/assets/files/free-css-templates/download/page285/viking.zip
+RUN yum install -y httpd \
+  zip \
+ unzip 
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page258/beauty.zip /var/www/html/
 WORKDIR /var/www/html
-RUN unzip viking.zip && \
-    cp -rvf viking/* . && \
-    rm -rf viking viking.zip
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+RUN unzip beauty.zip
+RUN cp -rvf templatemo_519_beauty/* .
+RUN rm -rf templatemo_519_beauty beauty.zip 
+CMD ["/usr/sbin/httpd", "-D",  "FOREGROUND"]
 EXPOSE 80
