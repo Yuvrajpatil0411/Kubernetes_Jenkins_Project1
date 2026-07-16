@@ -1,12 +1,16 @@
-FROM centos:latest
-MAINTAINER yuvrajpatil358@gmail.com
-RUN yum install -y httpd \
-  zip \
- unzip 
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page258/beauty.zip /var/www/html/
+FROM rockylinux:9
+
+LABEL maintainer="yuvrajpatil358@gmail.com"
+
+RUN dnf install -y httpd git && \
+    dnf clean all
+
 WORKDIR /var/www/html
-RUN unzip beauty.zip
-RUN cp -rvf templatemo_519_beauty/* .
-RUN rm -rf templatemo_519_beauty beauty.zip 
-CMD ["/usr/sbin/httpd", "-D",  "FOREGROUND"]
+
+RUN git clone https://github.com/StartBootstrap/startbootstrap-agency.git temp && \
+    cp -r temp/* . && \
+    rm -rf temp
+
 EXPOSE 80
+
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
