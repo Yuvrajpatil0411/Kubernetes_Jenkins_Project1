@@ -1,18 +1,19 @@
-# Node Base Image
 FROM node:12.2.0-alpine
 
-#Working Directry
 WORKDIR /node
 
-#Copy the Code
+# Copy dependency files first
 COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy application code
 COPY . .
 
-#Install the dependecies
-RUN npm install
+# Run tests
 RUN npm run test
+
 EXPOSE 8000 443
 
-#Run the code
-CMD ["node","app.js"]
-
+CMD ["node", "app.js"]
