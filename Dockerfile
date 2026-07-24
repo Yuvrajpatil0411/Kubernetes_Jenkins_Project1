@@ -5,6 +5,7 @@ FROM node:12.2.0-alpine
 WORKDIR /node
 
 #Copy the Code
+COPY package*.json ./
 COPY . .
 
 #Install the dependecies
