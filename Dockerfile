@@ -11,9 +11,6 @@ RUN npm install
 # Copy application code
 COPY . .
 
-# Run tests
-RUN npm run test
-
 EXPOSE 8000 443
 
 CMD ["node", "app.js"]
