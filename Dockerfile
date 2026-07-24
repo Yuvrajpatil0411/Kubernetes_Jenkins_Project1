@@ -1,4 +1,4 @@
-FROM node:12.2.0-alpine
+FROM node:20-alpine
 
 WORKDIR /node
 
@@ -11,6 +11,6 @@ RUN npm install
 # Copy application code
 COPY . .
 
-EXPOSE 8000 443
+EXPOSE 8000
 
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
