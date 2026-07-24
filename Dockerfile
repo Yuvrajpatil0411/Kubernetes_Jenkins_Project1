@@ -1,16 +1,17 @@
-FROM rockylinux:9
+# Node Base Image
+FROM node:12.2.0-alpine
 
-LABEL maintainer="yuvrajpatil358@gmail.com"
+#Working Directry
+WORKDIR /node
 
-RUN dnf install -y httpd git && \
-    dnf clean all
+#Copy the Code
+COPY . .
 
-WORKDIR /var/www/html
+#Install the dependecies
+RUN npm install
+RUN npm run test
+EXPOSE 8000
 
-RUN git clone https://github.com/StartBootstrap/startbootstrap-agency.git temp && \
-    cp -r temp/* . && \
-    rm -rf temp
+#Run the code
+CMD ["node","app.js"]
 
-EXPOSE 80 443
-
-CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
